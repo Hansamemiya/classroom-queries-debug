@@ -9,7 +9,6 @@
     <label for="email_box">
       Email
     </label>
-
     <input type="text" id="email_box" name="query_email">
   </div>
 
@@ -17,15 +16,13 @@
     <label for="first_name_box">
       First name
     </label>
-
-    <input type="text" id="first_name_box" name="query_name">
+    <input type="text" id="first_name_box" name="query_first_name">
   </div>
 
   <div>
     <label for="last_name_box">
       Last name
     </label>
-
     <input type="text" id="last_name_box" name="query_last_name">
   </div>
 
@@ -36,29 +33,16 @@
 
 <hr>
 
-<table class="table" border="1" >
+<table class="table" border="1">
   <tr>
-    <th>
-      ID
-    </th>
-
-    <th>
-      First name
-    </th>
-
-    <th>
-      Last name
-    </th>
-
-    <th>
-      Email
-    </th>
-
-    <th>
-    </th>
+    <th>ID</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th></th>
   </tr>
 
-  <% @students.eac do |student| %>
+  <% @students.each do |student| %>
     <tr>
       <td>
         <%= student.id %>
@@ -77,7 +61,7 @@
       </td>
 
       <td>
-        <a href="/students/<%= student %>">
+        <a href="/students/<%= student.id %>">
           Show details
         </a>
       </td>

@@ -9,10 +9,8 @@
     <label for="name_box">
       Name
     </label>
-
     <input type="text" id="name_box" name="query_name">
   </div>
-
   <button>
     Create department
   </button>
@@ -22,30 +20,20 @@
 
 <table class="table" border="1">
   <tr>
-    <th>
-      ID
-    </th>
-
-    <th>
-      Name
-    </th>
-
-    <th>
-    </th>
+    <th>ID</th>
+    <th>Name</th>
+    <th></th>
   </tr>
-
   <% @departments.each do |department| %>
     <tr>
       <td>
-        <%= @department.id %>
+        <%= department.id %>
       </td>
-
       <td>
-        <%= @department.name %>
+        <%= department.name %>
       </td>
-
       <td>
-        <a href="/departments/<%= @department.id %>">
+        <a href="/departments/<%= department.id %>">
           Show details
         </a>
       </td>
@@ -53,4 +41,62 @@
   <% end %>
 </table>
 
-<hr>
+<% if @department.present? %>
+  <hr>
+
+  <h1>
+    Department #<%= @department.id %> details
+  </h1>
+
+  <div>
+    <a href="/departments">
+      Go back
+    </a>
+  </div>
+
+  <div>
+    <a href="/delete_department/<%= @department.id %>">
+      Delete department
+    </a>
+  </div>
+
+  <hr>
+
+  <form action="/modify_department/<%= @department.id %>" method="post">
+    <div>
+      <label for="name_box">
+        Name
+      </label>
+      <input type="text" id="name_box" name="query_name" value="<%= @department.name %>">
+    </div>
+    <button>
+      Update department
+    </button>
+  </form>
+
+  <hr>
+
+  <dl>
+    <dt>Name</dt>
+    <dd>
+      <%= @department.name %>
+    </dd>
+
+    <dt>Number of courses</dt>
+    <dd>
+      <%= Course.where({ :department_id => @department.id }).count %>
+    </dd>
+  </dl>
+
+  <hr>
+
+  <h2>Courses</h2>
+  <% courses = Course.where({ :department_id => @department.id }) %>
+  <ul>
+    <% courses.each do |course| %>
+      <li>
+        <a href="/courses/<%= course.id %>"><%= course.title %></a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
